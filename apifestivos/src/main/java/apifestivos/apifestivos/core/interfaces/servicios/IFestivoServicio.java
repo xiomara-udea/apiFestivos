@@ -9,7 +9,7 @@ public interface IFestivoServicio {
     
     public List<Festivo> listar();
 
-    public List<Festivo> obtener(int year);
+    public List<Festivo> obtener(Integer year);
 
     public String verificar(int year, int month, int dia);
 

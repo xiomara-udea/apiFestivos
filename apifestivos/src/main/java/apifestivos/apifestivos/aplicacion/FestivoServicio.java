@@ -22,7 +22,6 @@ public class FestivoServicio implements IFestivoServicio {
         this.repositorio = repositorio;
     }
     
-    
     private Date obtenerDomingoPascua(int año) {
         int mes, dia, A, B, C, D, E, M, N;
         M = 0;
@@ -112,17 +111,6 @@ public class FestivoServicio implements IFestivoServicio {
         }
         return festivos;
     }
-    
-
-    public List<Festivo> obtenerFestivos(int año) {
-        List<Festivo> festivos = repositorio.findAll();
-        festivos = calcularFestivos(festivos, año);
-        List<Date> fechas = new ArrayList<Date>();
-        for (final Festivo festivo : festivos) {
-            fechas.add(festivo.getFecha());
-        }
-        return fechas;
-    }
 
     private boolean fechasIguales(Date fecha1, Date fecha2) {
         return fecha1.getYear()==fecha2.getYear() && fecha1.getMonth()==fecha2.getMonth() && fecha1.getDay()==fecha2.getDay();
@@ -146,14 +134,10 @@ public class FestivoServicio implements IFestivoServicio {
         return false;
     }
 
-
-
     @Override
     public List<Festivo> listar() {
         return repositorio.findAll();
     }
-
-
 
     @Override
     public String verificar(int year, int month, int dia) {
@@ -173,11 +157,4 @@ public class FestivoServicio implements IFestivoServicio {
         List<Festivo>festivos = repositorio.findAll();
         return esFestivo(festivos, fecha);
     }
-
-
-    @Override
-    public List<Festivo> obtener(int year) {
-        return obtenerFestivos(year);
-    }
-    
 }
