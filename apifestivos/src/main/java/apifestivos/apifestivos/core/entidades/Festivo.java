@@ -1,6 +1,7 @@
 package apifestivos.apifestivos.core.entidades;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "festivo")
@@ -41,6 +43,11 @@ public class Festivo {
     @JoinColumn(name = "idtipo", referencedColumnName = "id")
     private Tipo tipo;
 
+    @Transient
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    private Date fecha;
+
+   
     public Festivo() {
     }
 
@@ -50,7 +57,6 @@ public class Festivo {
         this.dia = dia;
         this.mes = mes;
         this.diaspascua = diaspascua;
-        this.fecha = fecha;
         this.tipo = tipo;
     }
 
@@ -102,6 +108,14 @@ public class Festivo {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     

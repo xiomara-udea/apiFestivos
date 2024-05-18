@@ -11,6 +11,8 @@ public interface IFestivoServicio {
 
     public List<Festivo> obtener(int year);
 
-    public String verificar(int year, int month, int año);
+    public String verificar(int year, int month, int dia);
+
+    public boolean esFestivo(Date fecha);
 
 }

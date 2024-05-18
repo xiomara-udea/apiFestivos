@@ -1,5 +1,6 @@
 package apifestivos.apifestivos.aplicacion;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -99,10 +100,10 @@ public class FestivoServicio implements IFestivoServicio {
                         festivo.setFecha(siguienteLunes(new Date(año - 1900, festivo.getMes() - 1, festivo.getDia())));
                         break;
                     case 3:
-                        festivo.setFecha(agregarDias(pascua, festivo.getDiasPascua()));
+                        festivo.setFecha(agregarDias(pascua, festivo.getDiaspascua()));
                         break;
                     case 4:
-                        festivo.setFecha(siguienteLunes(agregarDias(pascua, festivo.getDiasPascua())));
+                        festivo.setFecha(siguienteLunes(agregarDias(pascua, festivo.getDiaspascua())));
                         break;
                 }
                 festivos.set(i, festivo);
@@ -111,8 +112,9 @@ public class FestivoServicio implements IFestivoServicio {
         }
         return festivos;
     }
+    
 
-    public List<Date> obtenerFestivos(int año) {
+    public List<Festivo> obtenerFestivos(int año) {
         List<Festivo> festivos = repositorio.findAll();
         festivos = calcularFestivos(festivos, año);
         List<Date> fechas = new ArrayList<Date>();
@@ -151,23 +153,31 @@ public class FestivoServicio implements IFestivoServicio {
         return repositorio.findAll();
     }
 
-    @Override
-    public List<Festivo> obtener(int year) {
-       
-        throw new UnsupportedOperationException("Unimplemented method 'obtener'");
-    }
 
 
     @Override
-    public String verificar(int year, int month, int año) {
+    public String verificar(int year, int month, int dia) {
         
-        throw new UnsupportedOperationException("Unimplemented method 'verificar'");
+        try{
+            LocalDate localDate = java.time.LocalDate.of(year, month, dia);
+            Date fecha = java.sql.Date.valueOf(localDate);
+            var response = esFestivo(fecha);
+            return response ? "Es festivo":"No es festivo";
+        } catch(Exception e){
+            return "Fecha no válida";
+        }
     }
 
     @Override
     public boolean esFestivo(Date fecha) {
         List<Festivo>festivos = repositorio.findAll();
         return esFestivo(festivos, fecha);
+    }
+
+
+    @Override
+    public List<Festivo> obtener(int year) {
+        return obtenerFestivos(year);
     }
     
 }
