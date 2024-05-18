@@ -37,9 +37,6 @@ public class Festivo {
     @Column(name = "diaspascua")
     private int diaspascua;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
-    private Date fecha;
-
     @ManyToOne
     @JoinColumn(name = "idtipo", referencedColumnName = "id")
     private Tipo tipo;
@@ -97,13 +94,7 @@ public class Festivo {
         this.diaspascua = diaspascua;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+   
 
     public Tipo getTipo() {
         return tipo;
